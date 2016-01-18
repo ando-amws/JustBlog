@@ -36,7 +36,7 @@ namespace JustBlog.Controllers
     public ActionResult Login(string returnUrl)
     {
       // If already logged-in redirect the user to manage page.
-      if (_authProvider.IsLoggedIn)
+      if (_authProvider.IsLoggedIn())
         return RedirectToUrl(returnUrl);
 
       ViewBag.ReturnUrl = returnUrl;
@@ -53,14 +53,16 @@ namespace JustBlog.Controllers
     [HttpPost]
     [AllowAnonymous]
     [ValidateAntiForgeryToken]
-    public ActionResult Login(UserModel model, string returnUrl)
+    public ActionResult Login(User model, string returnUrl)
     {
-      if (ModelState.IsValid && _authProvider.Login(model.UserName, model.Password))
+
+      if (ModelState.IsValid && _authProvider.Login(model))
       {
         return RedirectToUrl(returnUrl);
       }
 
       ModelState.AddModelError("", "The user name or password provided is incorrect.");
+
       return View(model);
     }
 

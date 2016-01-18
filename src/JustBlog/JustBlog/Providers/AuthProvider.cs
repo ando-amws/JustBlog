@@ -1,44 +1,100 @@
 ﻿
 using System.Web;
 using System.Web.Security;
+using JustBlog.Core;
+using JustBlog.Core.Objects;
+using System;
 
 namespace JustBlog.Providers
 {
   public class AuthProvider: IAuthProvider
   {
-    /// <summary>
-    /// Return True if the user is already logged-in.
-    /// </summary>
-    public bool IsLoggedIn
-    {
-      get
-      {
-        return HttpContext.Current.User.Identity.IsAuthenticated;
-      }
-    }
+        private readonly IUserRepository _userRepository;
 
-    /// <summary>
-    /// Authenticate an user and set cookie if user is valid.
-    /// </summary>
-    /// <param name="username"></param>
-    /// <param name="password"></param>
-    /// <returns></returns>
-    public bool Login(string username, string password)
-    {
-      var result = FormsAuthentication.Authenticate(username, password); // TODO: User Membership APIs
+        public AuthProvider(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
 
-      if (result)
-        FormsAuthentication.SetAuthCookie(username, false);
+        /// <summary>
+        /// Return True if the user is already logged-in.
+        /// </summary>
+        public bool IsLoggedIn()
+        {
+            string session = (string)HttpContext.Current.Session["Session"];
 
-      return result;
-    }
+            // Just Verify session variable
+            if(session != null)
+            { 
+              return true;
+            }
+            return false;
+        }
 
-    /// <summary>
-    /// Logout the user.
-    /// </summary>
-    public void Logout()
-    {
-      FormsAuthentication.SignOut();
-    }
+        /// <summary>
+        /// Authenticate an user and set cookie if user is valid.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public bool Login(User user)
+        {
+            // Return true if user exist
+            var result = _userRepository.IsUserExist(user.Username, user.Password);
+
+            // Return all fields on sgbd user if username matches
+            var userdata = _userRepository.getUser(user.Username);
+
+            // If user doesn't exist, verify that he fill correctly the form
+            if (result)
+            {
+                //FormsAuthentication.SetAuthCookie(username, false);
+                HttpCookie usernameCookie = new HttpCookie("Username");
+                HttpCookie pwdCookie = new HttpCookie("Password");
+                HttpCookie sessionCookie = new HttpCookie("Session");
+
+                // set Expiration date
+                usernameCookie.Expires = DateTime.Now.AddDays(1d);
+                pwdCookie.Expires = DateTime.Now.AddDays(1d);
+                sessionCookie.Expires = DateTime.Now.AddDays(1d);
+
+                // Set Value on cookies
+                usernameCookie.Value = userdata.Username;
+                pwdCookie.Value = userdata.Password;
+                sessionCookie.Value = Convert.ToString(userdata.Session);
+
+            }
+
+          return result;
+        }
+
+        /// <summary>
+        /// Logout the user.
+        /// </summary>
+        public void Logout()
+        {
+            //FormsAuthentication.SignOut();
+            HttpCookie usernameCookie = new HttpCookie("Username");
+            HttpCookie pwdCookie = new HttpCookie("Password");
+            HttpCookie sessionCookie = new HttpCookie("Session");
+
+            // set Expiration date
+            usernameCookie.Expires = DateTime.Now.AddDays(1d);
+            pwdCookie.Expires = DateTime.Now.AddDays(1d);
+            sessionCookie.Expires = DateTime.Now.AddDays(1d);
+
+            // Assign a null value
+            usernameCookie.Value = null;
+            pwdCookie.Value = null;
+            sessionCookie.Value = null;
+
+            // Destroy session
+            HttpContext.Current.Session.Remove("Username");
+            HttpContext.Current.Session.Remove("Password");
+            HttpContext.Current.Session.Remove("Session");
+            HttpContext.Current.Session.RemoveAll();
+
+        }
   }
+
 }

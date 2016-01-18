@@ -7,16 +7,17 @@ using JustBlog.Models;
 using JustBlog.Core;
 using JustBlog.Core.Objects;
 using System.Web.Security;
+using JustBlog.Providers;
 
 namespace JustBlog.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IAuthProvider _authProvider;
 
-        public LoginController(IUserRepository userRepository)
+        public LoginController(IAuthProvider authProvider)
         {
-            _userRepository = userRepository;
+            _authProvider = authProvider;
         }
 
         public ActionResult Post()
@@ -29,14 +30,17 @@ namespace JustBlog.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
-        public ActionResult LogOn(User model)
+        [Authorize]
+        public ActionResult LogOn(User model, string returnUrl)
         {
             UserModel um = new UserModel(model);
             if (ModelState.IsValid)
             {
-                if (um.IsUserExist(_userRepository, model))
+                // Verify if user loggin is true
+                if (_authProvider.Login(model))
                 {
-                    FormsAuthentication.RedirectFromLoginPage("", false);
+                    //FormsAuthentication.RedirectFromLoginPage("", false);
+                    return RedirectToUrl(returnUrl);
                 }
                 else
                 {
@@ -45,6 +49,20 @@ namespace JustBlog.Controllers
             }
             return View(model);
         }
+
+        private ActionResult RedirectToUrl(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction("Blog");
+            }
+        }
+
+
 
     }
 }

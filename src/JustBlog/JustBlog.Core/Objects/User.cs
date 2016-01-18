@@ -24,6 +24,7 @@ namespace JustBlog.Core.Objects
 
         [Required(ErrorMessage = "firstname Required")]
         [StringLength(50, ErrorMessage = "Less than 50 characters")]
+        [Display(Name = "Firstname (*)")]
         public string firstName
         {
             get; set;
@@ -31,6 +32,7 @@ namespace JustBlog.Core.Objects
 
         [Required(ErrorMessage = "lastname Required")]
         [StringLength(50, ErrorMessage = "Less than 50 characters")]
+        [Display(Name = "Lastname (*)")]
         public  string lastName
         {
             get; set;
@@ -38,6 +40,7 @@ namespace JustBlog.Core.Objects
 
         [Required(ErrorMessage = "Email Required")]
         [StringLength(50, ErrorMessage = "Less than 50 characters")]
+        [Display(Name = "Email (*)")]
         public  string Email
         {
             get; set;
@@ -45,6 +48,7 @@ namespace JustBlog.Core.Objects
 
         [Required(ErrorMessage = "Username Required")]
         [StringLength(50, ErrorMessage = "Less than 50 characters")]
+        [Display(Name = "Username (*)")]
         public  string Username
         {
             get; set;
@@ -53,6 +57,7 @@ namespace JustBlog.Core.Objects
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Password Required")]
         [StringLength(30, ErrorMessage = ":Less than 30 characters")]
+        [Display(Name = "Password (*)")]
         public  string Password
         {
             get; set;

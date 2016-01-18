@@ -87,6 +87,19 @@ namespace JustBlog.Core
             return flags;
         }
 
+        // Method to get user from sgbd by his username
+        public User getUser(string username)
+        {
+            //User user = new User();
+            var data = _session.Query<User>()
+                        .Where(user => user.Username.Equals(username))
+                        .ToList();
+
+            var id = data.Select(u => u.Id).ToList();
+
+            return _session.Get<User>(id);
+        }
+
         public void Dispose()
         {
             throw new NotImplementedException();

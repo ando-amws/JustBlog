@@ -21,6 +21,7 @@ namespace JustBlog
       kernel.Load(new RepositoryModule());
       kernel.Bind<IBlogRepository>().To<BlogRepository>();
       kernel.Bind<IAuthProvider>().To<AuthProvider>();
+      kernel.Bind<IUserRepository>().To<UserRepository>();
 
       return kernel;
     }

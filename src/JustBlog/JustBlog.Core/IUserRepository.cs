@@ -31,5 +31,7 @@ namespace JustBlog.Core
         /// <param name="user"> User Object </param>
         /// <returns></returns>
         bool insert(User user);
+
+        User getUser(string username);
     }
 }

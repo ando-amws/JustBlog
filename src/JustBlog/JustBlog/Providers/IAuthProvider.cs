@@ -1,4 +1,6 @@
 ﻿
+using JustBlog.Core.Objects;
+
 namespace JustBlog.Providers
 {
   /// <summary>
@@ -9,7 +11,7 @@ namespace JustBlog.Providers
     /// <summary>
     /// Return True if the user is already logged-in.
     /// </summary>
-    bool IsLoggedIn { get; }
+    bool IsLoggedIn();
 
     /// <summary>
     /// Authenticate an user and set cookie if user is valid.
@@ -17,7 +19,7 @@ namespace JustBlog.Providers
     /// <param name="username"></param>
     /// <param name="password"></param>
     /// <returns></returns>
-    bool Login(string username, string password);
+    bool Login(User user);
 
     /// <summary>
     /// Logout the user.
