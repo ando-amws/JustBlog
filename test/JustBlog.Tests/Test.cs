@@ -8,5 +8,6 @@ namespace JustBlog.Tests
 {
     class Test
     {
+        private string name;
     }
 }
