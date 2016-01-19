@@ -52,6 +52,7 @@
     <Compile Include="AdminControllerTests.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\JustBlog\JustBlog.Core\JustBlog.Core.csproj">

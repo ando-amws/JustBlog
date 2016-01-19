@@ -1270,6 +1270,7 @@
   <ItemGroup>
     <None Include="Properties\PublishProfiles\Default.pubxml" />
     <Content Include="Views\Admin\Login.cshtml" />
+    <Content Include="Views\Register\Register.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
