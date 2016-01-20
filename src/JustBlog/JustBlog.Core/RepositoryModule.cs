@@ -25,6 +25,7 @@ namespace JustBlog.Core
         .Database(MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("JustBlogDbConnString")))
         .Cache(c => c.UseQueryCache().ProviderClass<HashtableCacheProvider>())
         .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Post>())
+        // Create all tables on SGBD
         //.ExposeConfiguration(cfg => new SchemaExport(cfg).Execute(true, true, false))
         .BuildConfiguration()
         .BuildSessionFactory())

@@ -72,6 +72,7 @@
     <Compile Include="BlogRepository.cs" />
     <Compile Include="IBlogRepository.cs" />
     <Compile Include="IUserRepository.cs" />
+    <Compile Include="Mappings\UserMap.cs" />
     <Compile Include="Objects\DBVariables.cs" />
     <Compile Include="UserRepository.cs" />
     <Compile Include="Mappings\CategoryMap.cs" />
