@@ -95,9 +95,9 @@ namespace JustBlog.Core
                         .Where(user => user.Username.Equals(username))
                         .ToList();
 
-            var id = data.Select(u => u.Id).ToList();
+            var id = data.Select(u => u.Username).ToList();
 
-            return _session.Get<User>(id);
+            return _session.Get<User>(username);
         }
 
         public void Dispose()

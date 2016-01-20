@@ -40,7 +40,7 @@ namespace JustBlog.Providers
         public bool Login(User user)
         {
             // Return true if user exist
-            var result = _userRepository.IsUserExist(user.Username, user.Password);
+            var result = _userRepository.IsAdminExist(user.Username, user.Password);
 
             // Return all fields on sgbd user if username matches
             var userdata = _userRepository.getUser(user.Username);

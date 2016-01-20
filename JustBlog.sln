@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustBlog", "src\JustBlog\JustBlog\JustBlog.csproj", "{A479EA19-8D37-4B08-9B16-29607676A95A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustBlog.Core", "src\JustBlog\JustBlog.Core\JustBlog.Core.csproj", "{787A6593-DB4C-4D2A-9AE7-9848BDC7D2FD}"
