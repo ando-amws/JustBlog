@@ -16,7 +16,7 @@ namespace JustBlog.Core.Mappings
             Map(x => x.Password).Length(50).Not.Nullable().Column("password");
             Map(x => x.Active).Length(5).Not.Nullable().Column("active");
             Map(x => x.Session).Length(5).Not.Nullable().Column("session_code");
-            // Test
+            // Test Ando 
             
         }
 
